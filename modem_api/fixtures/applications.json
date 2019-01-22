@@ -1,0 +1,31 @@
+[
+  {
+    "model": "oauth2_provider.application",
+    "pk": 1,
+    "fields": {
+      "name": "modems",
+      "client_id": "EmjnqanOwxqdlbuAh0CM11sWtcZLosyC0H2LWWP3",
+      "user_id": 2,
+      "client_type": "confidential",
+      "authorization_grant_type": "client-credentials",
+      "client_secret": "mrz67f4nVeDyS8gGXiqZ3mV98JwC2mlFIV13pvDUqEVO7MyyRX5pOXAITo5USva4GhVFuieOZ3XekuNsxBtIErefWkyBSYoFqnYgKpGXXrJxyVmxPEFzsXbI78pHA2aX",
+      "created": "2019-01-01T13:20:30+01:00",
+      "updated": "2019-01-01T13:20:30+01:00"
+    }
+  },
+  {
+    "model": "oauth2_provider.application",
+    "pk": 2,
+    "fields": {
+      "name": "peex",
+      "client_id": "W9wpgHkeKHjhoZMCqlWKvDcNIKycrtRsL2q5iFjh",
+      "user_id": 3,
+      "client_type": "confidential",
+      "authorization_grant_type": "client-credentials",
+      "client_secret": "EshY4T4oD4cyb4Pb79gZxaj6sAbRj54SJ3L1yARrympMMNhx8W69hYIgIASSGHPNSr38HZ6EAlE6O6PU8p339T88KZjtHPMGaCECLwf69x3KEuyz5Tdrz5GvZGjbGARb",
+      "created": "2019-01-01T13:20:30+01:00",
+      "updated": "2019-01-01T13:20:30+01:00"
+    }
+  }
+
+]

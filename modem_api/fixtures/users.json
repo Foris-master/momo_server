@@ -1,0 +1,54 @@
+[
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "root123",
+      "is_superuser": true,
+      "is_staff": true,
+      "username": "root",
+      "email": "root@mailinator.com",
+      "is_active": true,
+      "date_joined": "2019-01-01T13:20:30+01:00"
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+      "password": "modem123",
+      "is_superuser": false,
+      "username": "modem",
+      "email": "modem@mailinator.com",
+      "is_active": true,
+      "date_joined": "2019-01-01T13:20:30+01:00",
+      "groups": [1]
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+      "password": "/client123",
+      "is_superuser": false,
+      "username": "client",
+      "email": "client@mailinator.com",
+      "is_active": true,
+      "date_joined": "2019-01-01T13:20:30+01:00",
+      "groups": [2]
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 4,
+    "fields": {
+      "password": "manager123",
+      "is_superuser": false,
+      "username": "manager",
+      "email": "manager@mailinator.com",
+      "is_active": true,
+      "date_joined": "2019-01-01T13:20:30+01:00",
+      "groups": [3]
+    }
+  }
+]

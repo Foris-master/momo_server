@@ -1,0 +1,108 @@
+[
+  {
+    "model": "modem_api.answer",
+    "pk": 1,
+    "fields": {
+      "answer": "close",
+      "order": 1,
+      "is_int": false,
+      "service_id": 1,
+      "description": "msdin",
+      "created_at": "2019-01-01T13:20:30+01:00",
+      "updated_at":  "2019-01-01T13:20:30+01:00"
+    }
+  },
+  {
+    "model": "modem_api.answer",
+    "pk": 2,
+    "fields": {
+      "answer": "6",
+      "order": 1,
+      "is_int": true,
+      "service_id": 2,
+      "description": "required here",
+      "created_at": "2019-01-01T13:20:30+01:00",
+      "updated_at":  "2019-01-01T13:20:30+01:00"
+    }
+  },
+  {
+    "model": "modem_api.answer",
+    "pk": 3,
+    "fields": {
+      "answer": "1",
+      "order": 2,
+      "is_int": true,
+      "service_id": 2,
+      "description": "required here",
+      "created_at": "2019-01-01T13:20:30+01:00",
+      "updated_at":  "2019-01-01T13:20:30+01:00"
+    }
+  },
+  {
+    "model": "modem_api.answer",
+    "pk": 4,
+    "fields": {
+      "answer": "{mmo_pin}",
+      "order": 3,
+      "is_int": false,
+      "service_id": 2,
+      "description": "required here",
+      "created_at": "2019-01-01T13:20:30+01:00",
+      "updated_at":  "2019-01-01T13:20:30+01:00"
+    }
+  },
+{
+    "model": "modem_api.answer",
+    "pk": 5,
+    "fields": {
+      "answer": "close",
+      "order": 1,
+      "is_int": false,
+      "service_id": 5,
+      "description": "your number",
+      "created_at": "2019-01-01T13:20:30+01:00",
+      "updated_at":  "2019-01-01T13:20:30+01:00"
+    }
+  },
+  {
+    "model": "modem_api.answer",
+    "pk": 6,
+    "fields": {
+      "answer": "6",
+      "order": 1,
+      "is_int": true,
+      "service_id": 6,
+      "description": "required here",
+      "created_at": "2019-01-01T13:20:30+01:00",
+      "updated_at":  "2019-01-01T13:20:30+01:00"
+    }
+  },
+  {
+    "model": "modem_api.answer",
+    "pk": 7,
+    "fields": {
+      "answer": "2",
+      "order": 2,
+      "is_int": true,
+      "service_id": 6,
+      "description": "required here",
+      "created_at": "2019-01-01T13:20:30+01:00",
+      "updated_at":  "2019-01-01T13:20:30+01:00"
+    }
+  },
+  {
+    "model": "modem_api.answer",
+    "pk": 8,
+    "fields": {
+      "answer": "{om_pin}",
+      "order": 3,
+      "is_int": false,
+      "service_id": 6,
+      "description": "required here",
+      "created_at": "2019-01-01T13:20:30+01:00",
+      "updated_at":  "2019-01-01T13:20:30+01:00"
+    }
+}
+
+
+]
