@@ -1,0 +1,22 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pypiwin32 = "*"
+
+[packages]
+django = "*"
+djangorestframework = "*"
+django-oauth-toolkit = "*"
+channels = "*"
+channels-redis = "*"
+django-cors-middleware = "*"
+psycopg2 = "*"
+python-dotenv = "*"
+django-filter = "*"
+django-encrypted-fields = "*"
+
+[requires]
+python_version = "3.7"
