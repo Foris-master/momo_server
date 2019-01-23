@@ -4,7 +4,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from momo_api import views
 
 urlpatterns = [
-    path('transactions/', views.TransactionList.as_view(), name='transaction-list'),
+    path('transactions/', views.TransactionView.as_view(), name='transaction-list'),
     path('transactions/<int:pk>/', views.TransactionDetail.as_view(), name='transaction-detail'),
     path('proofs/', views.ProofList.as_view(), name='proof-list'),
     path('proofs/<int:pk>/', views.ProofDetail.as_view(), name='proof-detail'),

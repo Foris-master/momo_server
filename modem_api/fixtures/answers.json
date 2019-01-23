@@ -6,10 +6,10 @@
       "answer": "close",
       "order": 1,
       "is_int": false,
-      "service_id": 1,
+      "operator_service_id": 1,
       "description": "msdin",
       "created_at": "2019-01-01T13:20:30+01:00",
-      "updated_at":  "2019-01-01T13:20:30+01:00"
+      "updated_at": "2019-01-01T13:20:30+01:00"
     }
   },
   {
@@ -19,10 +19,10 @@
       "answer": "6",
       "order": 1,
       "is_int": true,
-      "service_id": 2,
-      "description": "required here",
+      "operator_service_id": 2,
+      "description": null,
       "created_at": "2019-01-01T13:20:30+01:00",
-      "updated_at":  "2019-01-01T13:20:30+01:00"
+      "updated_at": "2019-01-01T13:20:30+01:00"
     }
   },
   {
@@ -32,77 +32,179 @@
       "answer": "1",
       "order": 2,
       "is_int": true,
-      "service_id": 2,
-      "description": "required here",
+      "operator_service_id": 2,
+      "description": null,
       "created_at": "2019-01-01T13:20:30+01:00",
-      "updated_at":  "2019-01-01T13:20:30+01:00"
+      "updated_at": "2019-01-01T13:20:30+01:00"
     }
   },
   {
     "model": "modem_api.answer",
     "pk": 4,
     "fields": {
-      "answer": "{mmo_pin}",
+      "answer": "{pin}",
       "order": 3,
-      "is_int": false,
-      "service_id": 2,
-      "description": "required here",
+      "is_int": true,
+      "operator_service_id": 2,
+      "description": null,
       "created_at": "2019-01-01T13:20:30+01:00",
-      "updated_at":  "2019-01-01T13:20:30+01:00"
+      "updated_at": "2019-01-01T13:20:30+01:00"
     }
   },
-{
+  {
     "model": "modem_api.answer",
     "pk": 5,
     "fields": {
-      "answer": "close",
+      "answer": "1",
       "order": 1,
-      "is_int": false,
-      "service_id": 5,
-      "description": "your number",
+      "is_int": true,
+      "operator_service_id": 3,
+      "description": null,
       "created_at": "2019-01-01T13:20:30+01:00",
-      "updated_at":  "2019-01-01T13:20:30+01:00"
+      "updated_at": "2019-01-01T13:20:30+01:00"
     }
   },
   {
     "model": "modem_api.answer",
     "pk": 6,
     "fields": {
-      "answer": "6",
-      "order": 1,
-      "is_int": true,
-      "service_id": 6,
-      "description": "required here",
+      "answer": "{phone_number}",
+      "order": 2,
+      "is_int": false,
+      "operator_service_id": 3,
+      "description": null,
       "created_at": "2019-01-01T13:20:30+01:00",
-      "updated_at":  "2019-01-01T13:20:30+01:00"
+      "updated_at": "2019-01-01T13:20:30+01:00"
     }
   },
   {
     "model": "modem_api.answer",
     "pk": 7,
     "fields": {
-      "answer": "2",
-      "order": 2,
+      "answer": "{amount}",
+      "order": 3,
       "is_int": true,
-      "service_id": 6,
-      "description": "required here",
+      "operator_service_id": 3,
+      "description":null,
       "created_at": "2019-01-01T13:20:30+01:00",
-      "updated_at":  "2019-01-01T13:20:30+01:00"
+      "updated_at": "2019-01-01T13:20:30+01:00"
     }
   },
   {
     "model": "modem_api.answer",
     "pk": 8,
     "fields": {
-      "answer": "{om_pin}",
+      "answer": "{pin}",
+      "order": 4,
+      "is_int": true,
+      "operator_service_id": 3,
+      "description": null,
+      "created_at": "2019-01-01T13:20:30+01:00",
+      "updated_at": "2019-01-01T13:20:30+01:00"
+    }
+  },
+  {
+    "model": "modem_api.answer",
+    "pk": 9,
+    "fields": {
+      "answer": "close",
+      "order": 1,
+      "is_int": false,
+      "operator_service_id": 5,
+      "description": "your number",
+      "created_at": "2019-01-01T13:20:30+01:00",
+      "updated_at": "2019-01-01T13:20:30+01:00"
+    }
+  },
+  {
+    "model": "modem_api.answer",
+    "pk": 10,
+    "fields": {
+      "answer": "6",
+      "order": 1,
+      "is_int": true,
+      "operator_service_id": 6,
+      "description": null,
+      "created_at": "2019-01-01T13:20:30+01:00",
+      "updated_at": "2019-01-01T13:20:30+01:00"
+    }
+  },
+  {
+    "model": "modem_api.answer",
+    "pk": 11,
+    "fields": {
+      "answer": "2",
+      "order": 2,
+      "is_int": true,
+      "operator_service_id": 6,
+      "description": null,
+      "created_at": "2019-01-01T13:20:30+01:00",
+      "updated_at": "2019-01-01T13:20:30+01:00"
+    }
+  },
+  {
+    "model": "modem_api.answer",
+    "pk": 12,
+    "fields": {
+      "answer": "{pin}",
+      "order": 3,
+      "is_int": true,
+      "operator_service_id": 6,
+      "description": "Le solde de votre compte est de {balance} FCFA.",
+      "created_at": "2019-01-01T13:20:30+01:00",
+      "updated_at": "2019-01-01T13:20:30+01:00"
+    }
+  },
+  {
+    "model": "modem_api.answer",
+    "pk": 13,
+    "fields": {
+      "answer": "1",
+      "order": 1,
+      "is_int": true,
+      "operator_service_id": 7,
+      "description": null,
+      "created_at": "2019-01-01T13:20:30+01:00",
+      "updated_at": "2019-01-01T13:20:30+01:00"
+    }
+  },
+  {
+    "model": "modem_api.answer",
+    "pk": 14,
+    "fields": {
+      "answer": "{amount}",
+      "order": 2,
+      "is_int": true,
+      "operator_service_id": 7,
+      "description": null,
+      "created_at": "2019-01-01T13:20:30+01:00",
+      "updated_at": "2019-01-01T13:20:30+01:00"
+    }
+  },
+  {
+    "model": "modem_api.answer",
+    "pk": 15,
+    "fields": {
+      "answer": "{phone_number}",
       "order": 3,
       "is_int": false,
-      "service_id": 6,
-      "description": "required here",
+      "operator_service_id": 7,
+      "description": null,
       "created_at": "2019-01-01T13:20:30+01:00",
-      "updated_at":  "2019-01-01T13:20:30+01:00"
+      "updated_at": "2019-01-01T13:20:30+01:00"
     }
-}
-
-
+  },
+  {
+    "model": "modem_api.answer",
+    "pk": 16,
+    "fields": {
+      "answer": "{pin}",
+      "order": 4,
+      "is_int": false,
+      "operator_service_id": 7,
+      "description": null,
+      "created_at": "2019-01-01T13:20:30+01:00",
+      "updated_at": "2019-01-01T13:20:30+01:00"
+    }
+  }
 ]

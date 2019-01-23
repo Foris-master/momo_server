@@ -4,9 +4,7 @@
     "pk": 1,
     "fields": {
       "name": "phone number",
-      "tag": "mtn-phn",
-      "ussd": "*135*8#",
-      "operator_id": 1,
+      "tag": "phn",
       "description": "get station phone number",
       "created_at": "2019-01-01T13:20:30+01:00",
       "updated_at":  "2019-01-01T13:20:30+01:00"
@@ -17,9 +15,7 @@
     "pk": 2,
     "fields": {
       "name": "get balance",
-      "tag": "mtn-bal",
-      "ussd": "*126#",
-      "operator_id": 1,
+      "tag": "bal",
       "description": "get station balance",
       "created_at": "2019-01-01T13:20:30+01:00",
       "updated_at":  "2019-01-01T13:20:30+01:00"
@@ -30,9 +26,7 @@
     "pk": 3,
     "fields": {
       "name": "send money",
-      "tag": "mtn-sdm",
-      "ussd": "*126#",
-      "operator_id": 1,
+      "tag": "sdm",
       "description": "make station send money to user",
       "created_at": "2019-01-01T13:20:30+01:00",
       "updated_at":  "2019-01-01T13:20:30+01:00"
@@ -43,61 +37,7 @@
     "pk": 4,
     "fields": {
       "name": "retrieve money",
-      "tag": "mtn-rem",
-      "ussd": "*126#",
-      "operator_id": 1,
-      "description": "make station take money from user account",
-      "created_at": "2019-01-01T13:20:30+01:00",
-      "updated_at":  "2019-01-01T13:20:30+01:00"
-    }
-  },
-  {
-    "model": "modem_api.service",
-    "pk": 5,
-    "fields": {
-      "name": "phone number",
-      "tag": "orange-phn",
-      "ussd": "#99#",
-      "operator_id": 2,
-      "description": "get station phone number",
-      "created_at": "2019-01-01T13:20:30+01:00",
-      "updated_at":  "2019-01-01T13:20:30+01:00"
-    }
-  },
-  {
-    "model": "modem_api.service",
-    "pk": 6,
-    "fields": {
-      "name": "get balance",
-      "tag": "orange-bal",
-      "ussd": "#149#",
-      "operator_id": 2,
-      "description": "get station balance",
-      "created_at": "2019-01-01T13:20:30+01:00",
-      "updated_at":  "2019-01-01T13:20:30+01:00"
-    }
-  },
-  {
-    "model": "modem_api.service",
-    "pk": 7,
-    "fields": {
-      "name": "send money",
-      "tag": "orange-sdm",
-      "ussd": "#149#",
-      "operator_id": 2,
-      "description": "make station send money to user",
-      "created_at": "2019-01-01T13:20:30+01:00",
-      "updated_at":  "2019-01-01T13:20:30+01:00"
-    }
-  },
-  {
-    "model": "modem_api.service",
-    "pk": 8,
-    "fields": {
-      "name": "retrieve money",
-      "tag": "orange-rem",
-      "ussd": "*126#",
-      "operator_id": 2,
+      "tag": "rem",
       "description": "make station take money from user account",
       "created_at": "2019-01-01T13:20:30+01:00",
       "updated_at":  "2019-01-01T13:20:30+01:00"

@@ -16,7 +16,8 @@ django-cors-middleware = "*"
 psycopg2 = "*"
 python-dotenv = "*"
 django-filter = "*"
-django-encrypted-fields = "*"
+django-fernet-fields = "*"
+django-extensions = "*"
 
 [requires]
 python_version = "3.7"

@@ -1,10 +1,12 @@
+import pprint
+
 from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
 from django.core.management import BaseCommand, call_command
 from django.db.models import Q
 
 from modem_api.models import Modem, Operator, Service
-from modem_api.serializers import ServiceSerializer
+from modem_api.serializers import ServiceSerializer, OperatorServiceSerializer, ModemSerializer
 
 
 class Command(BaseCommand):
@@ -22,10 +24,12 @@ class Command(BaseCommand):
             results = load_data()
 
         message['data'] = results
+        # pprint.pprint(results, width=1)
 
-
-        for modem in Modem.objects.filter(is_active=True).all():
+        for modem in Modem.objects.prefetch_related('stations').filter(is_active=True).all():
             gn = 'modem_%s' % modem.tag
+            modem = ModemSerializer(modem).data
+            message['modem'] = modem
             channel_layer = get_channel_layer()
             try:
                 # pass
@@ -53,10 +57,11 @@ def load_data():
 
     # Query the model
 
-    for service in Service.objects.prefetch_related('answers').filter(query).all():
-        s = ServiceSerializer(service).data
-        if ops[service.operator_id] not in res:
-            res[ops[service.operator_id]] = {'services': {service.tag: s}}
-        else:
-            res[ops[service.operator_id]]['services'][service.tag] = s
+    for service in Service.objects.prefetch_related('operator_services').filter(query).all():
+        for opservice in service.operator_services.all():
+            ser_opservice = OperatorServiceSerializer(opservice).data
+            if ops[opservice.operator_id] not in res:
+                res[ops[opservice.operator_id]] = {'services': {service.tag: ser_opservice}}
+            else:
+                res[ops[opservice.operator_id]]['services'][service.tag] = ser_opservice
     return res

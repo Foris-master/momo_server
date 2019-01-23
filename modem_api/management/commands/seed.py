@@ -14,4 +14,4 @@ class Command(BaseCommand):
         for user in User.objects.all():
             user.set_password(user.password)
             user.save()
-        call_command('loaddata', 'applications', 'modems', 'operators', 'services', 'mobile_wallets', 'answers')
+        call_command('loaddata', 'applications', 'modems', 'operators', 'services', 'operator_services', 'mobile_wallets', 'answers')

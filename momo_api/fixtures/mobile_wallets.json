@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
       "name": "mtn mobile money",
-      "tag": "mtn-cm",
+      "tag": "mmm-cm",
       "balance": 0,
       "max_balance": 0,
       "operator_id": 1,

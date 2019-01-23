@@ -11,9 +11,14 @@ class ProofSerializer(serializers.ModelSerializer):
 
 
 class TransactionSerializer(serializers.ModelSerializer):
+    # mobile_wallet = serializers.RelatedField(source=MobileWallet, read_only=True)
+    # user = serializers.RelatedField(source=User, read_only=True)
+
     class Meta:
         model = Transaction
-        fields = ('id', 'name', 'tag', 'description', 'is_active', 'created_at', 'updated_at')
+        # fields = ('__all__')
+        fields = (
+            'id', 'amount', 'track_id', 'status', 'recipient', 'mobile_wallet', 'user', 'created_at', 'updated_at')
         proofs = ProofSerializer(many=True)
 
 

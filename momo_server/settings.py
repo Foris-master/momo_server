@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'modem_api',
-    'momo_api'
+    'momo_api',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
