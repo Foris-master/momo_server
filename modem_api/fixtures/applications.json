@@ -21,6 +21,7 @@
       "client_id": "W9wpgHkeKHjhoZMCqlWKvDcNIKycrtRsL2q5iFjh",
       "user_id": 3,
       "client_type": "confidential",
+      "redirect_uris": "https://dev-backend.peexit.com/api/v1/momo/update_transacation",
       "authorization_grant_type": "client-credentials",
       "client_secret": "EshY4T4oD4cyb4Pb79gZxaj6sAbRj54SJ3L1yARrympMMNhx8W69hYIgIASSGHPNSr38HZ6EAlE6O6PU8p339T88KZjtHPMGaCECLwf69x3KEuyz5Tdrz5GvZGjbGARb",
       "created": "2019-01-01T13:20:30+01:00",

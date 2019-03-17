@@ -6,6 +6,7 @@ import json
 # from .models import Message, Chat, Contact
 # from .views import get_last_10_messages, get_user_contact, get_current_chat
 from modem_api.models import Modem, Station, Operator, ServiceStation, Service
+from momo_api.models import Proof, Transaction
 
 User = get_user_model()
 
@@ -49,28 +50,41 @@ class ModemConsumer(WebsocketConsumer):
     #     }
     #
 
+    def connected(self, response):
+        print(response)
+
     def update_modem(self, response):
-        print(response['data'])
+
         for (port, dat) in response['data'].items():
             ph = dat['phone_number']
+            imsi = dat['imsi']
             op = Operator.objects.filter(tag=dat['operator']).first()
-            if not Station.objects.filter(phone_number=ph).exists():
+
+            old_station = Station.objects.filter(imei=dat['imei']).first()
+            if old_station is not None:
+                old_station.imei = None
+                old_station.save()
+            old_station = Station.objects.filter(port=port, modem=self.modem).first()
+            if old_station is not None:
+                old_station.port = None
+                old_station.save()
+            if not Station.objects.filter(imsi=imsi).exists():
                 station = Station()
             else:
-                station = Station.objects.filter(phone_number=ph).first()
+                station = Station.objects.filter(imsi=imsi).first()
                 if 'balance' in dat and dat['balance']['value'] is not None:
                     service = Service.objects.filter(tag=dat['balance']['service']).first()
                     ss = ServiceStation.objects.filter(station=station, service=service).first()
                     b = dat['balance']['value']
-                    b= b.replace(',','')
+                    b = b.replace(',', '')
                     ss.balance = int(float(b))
                     ss.save()
 
             station.name = ph
-            station.state = 'new'
+            station.state = 'free'
             station.phone_number = ph
             station.imei = dat['imei']
-            station.imsi = dat['imsi']
+            station.imsi = imsi
             station.port = port
 
             station.description = str({
@@ -86,42 +100,28 @@ class ModemConsumer(WebsocketConsumer):
             station.save()
 
     def proceed_momo(self, response):
-        print(response['data'])
-        for (port, dat) in response['data'].items():
-            ph = dat['phone_number']
-            op = Operator.objects.filter(tag=dat['operator']).first()
-            if not Station.objects.filter(phone_number=ph).exists():
-                station = Station()
-            else:
-                station = Station.objects.filter(phone_number=ph).first()
-                if 'balance' in dat and dat['balance']['value'] is not None:
-                    service = Service.objects.filter(tag=dat['balance']['service']).first()
-                    ss = ServiceStation.objects.filter(station=station, service=service).first()
-                    b = dat['balance']['value']
-                    b= b.replace(',','')
-                    ss.balance = int(float(b))
-                    ss.save()
-
-            station.name = ph
-            station.state = 'new'
-            station.phone_number = ph
-            station.imei = dat['imei']
-            station.imsi = dat['imsi']
-            station.port = port
-
-            station.description = str({
-                'network': dat['network'],
-                'signal': dat['signal'],
-                'manufacturer': dat['manufacturer'],
-                'model': dat['model'],
-                'alive': dat['alive']
-            })
-
-            station.modem_id = self.modem.id
-            station.operator_id = op.id
-            station.save()
+        # print(response['data'])
+        transaction = response['data']['transaction_id']
+        station = response['data']['station_id']
+        transaction = Transaction.objects.filter(id=transaction).first()
+        station = Station.objects.filter(id=station).first()
+        p = Proof(transaction=transaction, station=station)
+        p.amount = transaction.amount
+        p.mno_id = 'not yet implemented'
+        p.mno_respond = response['data']['response']
+        p.save()
+        if response['data']['last_answer'] == 'close-ok':
+            transaction.status = 'paid'
+        else:
+            transaction.status = 'failed'
+        service2 = Service.objects.filter(tag='bal').first()
+        ss1 = ServiceStation.objects.filter(station=station, service=service2).first()
+        ss1.balance -= transaction.amount
+        ss1.save()
+        transaction.save()
 
     commands = {
+        'connected': connected,
         'describe': update_modem,
         'proceed_momo': proceed_momo,
     }
@@ -131,21 +131,25 @@ class ModemConsumer(WebsocketConsumer):
         self.modem = Modem.objects.filter(tag=tag).first()
 
         if self.modem is not None:
-            print(state)
+            # print(state)
             self.modem.is_active = state
             self.modem.save()
 
     def connect(self):
-        self.room_name = self.scope['url_route']['kwargs']['tag']
-        self.room_group_name = 'modem_%s' % self.room_name
-        async_to_sync(self.channel_layer.group_add)(
-            self.room_group_name,
-            self.channel_name
-        )
+        user = self.scope['user']
+        if not user.is_anonymous:
+            self.room_name = self.scope['url_route']['kwargs']['tag']
+            self.room_group_name = 'modem_%s' % self.room_name
+            async_to_sync(self.channel_layer.group_add)(
+                self.room_group_name,
+                self.channel_name
+            )
 
-        self.change_modem_state(self.room_name)
+            self.change_modem_state(self.room_name)
 
-        self.accept()
+            self.accept()
+        else:
+            self.close()
 
     def disconnect(self, close_code):
         self.change_modem_state(self.room_name, False)
@@ -156,22 +160,22 @@ class ModemConsumer(WebsocketConsumer):
         )
 
     def receive(self, text_data=None, bytes_data=None):
+        print(text_data)
         data = json.loads(text_data)
-        # print(str(text_data))
         self.commands[data['command']](self, data)
 
-    def send_chat_message(self, message):
-        async_to_sync(self.channel_layer.group_send)(
-            self.room_group_name,
-            {
-                'type': 'chat_message',
-                'message': message
-            }
-        )
+    # def send_chat_message(self, message):
+    #     async_to_sync(self.channel_layer.group_send)(
+    #         self.room_group_name,
+    #         {
+    #             'type': 'chat_message',
+    #             'message': message
+    #         }
+    #     )
 
     def send_message(self, message):
         self.send(text_data=json.dumps(message))
 
-    def chat_message(self, event):
+    def modem_message(self, event):
         message = event['message']
         self.send(text_data=json.dumps(message))

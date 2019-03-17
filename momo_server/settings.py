@@ -19,7 +19,6 @@ load_dotenv(verbose=True)
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
@@ -29,8 +28,8 @@ SECRET_KEY = os.getenv('APP_SECRET')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('APP_DEBUG')
 
-ALLOWED_HOSTS = [os.getenv('APP_URL'),'172.31.27.8']
-
+# ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [os.getenv('APP_URL'), '172.31.27.8', '10.0.2.2', 'localhost']
 
 # Application definition
 
@@ -43,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'oauth2_provider',
     'channels',
+    'django_cron',
     'rest_framework',
     'django_filters',
     'modem_api',
@@ -97,11 +97,10 @@ DATABASES = {
         'NAME': os.getenv("DB_DATABASE"),
         'USER': os.getenv("DB_USERNAME"),
         'PASSWORD': os.getenv("DB_PASSWORD"),
-        'HOST':  os.getenv("DB_HOST"),
-        'PORT':  os.getenv("DB_PORT")
+        'HOST': os.getenv("DB_HOST"),
+        'PORT': os.getenv("DB_PORT")
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -121,7 +120,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
@@ -135,7 +133,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
@@ -143,13 +140,12 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
-
 # -- Set up DRF to use OAuth2
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
-        'rest_framework.authentication.SessionAuthentication', # To keep the Browsable API
+        'rest_framework.authentication.SessionAuthentication',  # To keep the Browsable API
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
@@ -159,13 +155,15 @@ REST_FRAMEWORK = {
     ),
     'PAGINATE_BY': 10,  # Default to 10
     'PAGINATE_BY_PARAM': 'page_size',  # Allow client to override, using `?page_size=xxx`.
-    'MAX_PAGINATE_BY': 100  # Maximum limit allowed when using `?page_size=xxx`.
+    'MAX_PAGINATE_BY': 100,  # Maximum limit allowed when using `?page_size=xxx`.
+
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
 }
 
 # --- Specify the authentication backends
 
 AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend', # To keep the Browsable API
+    'django.contrib.auth.backends.ModelBackend',  # To keep the Browsable API
     'oauth2_provider.backends.OAuth2Backend',
 )
 
@@ -181,6 +179,13 @@ OAUTH2_PROVIDER = {
     },
 }
 
+#  --- cron config
+
+CRON_CLASSES = [
+    "my_app.cron.MyCronJob",
+    # ...
+]
+
 # django cors config
 # CORS_ORIGIN_ALLOW_ALL = True
 
@@ -193,3 +198,25 @@ CHANNEL_LAYERS = {
         },
     },
 }
+
+# django fernet keys
+
+FERNET_KEYS = [
+    "bn0z$adm)0hu_*n!ipw1-)8ek^0ds^ab-gk^#_f$ainr*1k+6=",
+]
+
+# mail configuration
+
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_PORT = os.getenv("EMAIL_PORT")
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
+EMAIL_USE_TLS = True
+
+#  --- cron config
+
+CRON_CLASSES = [
+    "momo_api.cron.ProceedTransactionJob",
+    # ...
+]

@@ -18,6 +18,8 @@ python-dotenv = "*"
 django-filter = "*"
 django-fernet-fields = "*"
 django-extensions = "*"
+requests = "*"
+django-cron = "*"
 
 [requires]
 python_version = "3.7"

@@ -15,15 +15,16 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 
 from modem_api import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('modem_api.urls')),
-    path('api/', include('momo_api.urls')),
+    re_path('api/(?P<version>(v1|v2))/', include('modem_api.urls')),
+    re_path('api/(?P<version>(v1|v2))/', include('momo_api.urls')),
     path("oauth/token/", views.TokenView.as_view(), name="token"),  # new
     path('oauth/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     path('', views.api_root),
+    path('detect/', views.modem_detect),
 ]

@@ -3,8 +3,9 @@
     "model": "momo_api.mobilewallet",
     "pk": 1,
     "fields": {
-      "name": "mtn mobile money",
-      "tag": "mmm-cm",
+      "name": "peex mtn mobile money",
+      "tag": "px-mmm-cm",
+      "user_id": 3,
       "balance": 0,
       "max_balance": 0,
       "operator_id": 1,
@@ -16,8 +17,9 @@
     "model": "momo_api.mobilewallet",
     "pk": 2,
     "fields": {
-      "name": "orange money",
-      "tag": "om-cm",
+      "name": "peex orange money",
+      "tag": "px-om-cm",
+      "user_id": 3,
       "balance": 0,
       "max_balance": 0,
       "operator_id": 2,

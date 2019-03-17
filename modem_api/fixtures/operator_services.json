@@ -1,92 +1,581 @@
 [
   {
-    "model": "modem_api.operatorservice",
-    "pk": 1,
-    "fields": {
-      "ussd": "*135*8#",
-      "operator_id": 1,
-      "service_id": 1,
-      "created_at": "2019-01-01T13:20:30+01:00",
-      "updated_at":  "2019-01-01T13:20:30+01:00"
-    }
+    "operator": "mtn-cm",
+    "services": [
+      {
+        "service": "phn",
+        "ussd": "*135*8#",
+        "entry_answer": {
+          "answer": "close",
+          "is_int": false,
+          "description": "Y'ello! Vous etes actuellement sur le plan tarifaire MTN GO et votre numero est {number}."
+        }
+      },
+      {
+        "service": "bal",
+        "ussd": "*126#",
+        "entry_answer": {
+          "answer": "6",
+          "is_int": true,
+          "description": null,
+          "next": [
+            {
+              "answer": "1",
+              "is_int": true,
+              "description": null,
+              "next": [
+                {
+                  "answer": "{pin}",
+                  "is_int": true,
+                  "description": null,
+                  "next": [
+                    {
+                      "answer": "close",
+                      "is_int": false,
+                      "description": "Solde Mobile Money: {balance} FCFA Solde recharge: {recharge} FCFA Solde comissions {comission} FCFA"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "service": "sdm2w",
+        "ussd": "*126#",
+        "entry_answer": {
+          "answer": "1",
+          "is_int": true,
+          "description": null,
+          "next": [
+            {
+              "answer": "{phone_number}",
+              "is_int": false,
+              "description": null,
+              "next": [
+                {
+                  "answer": "{amount}",
+                  "is_int": true,
+                  "description": null,
+                  "next": [
+                    {
+                      "answer": "{pin}",
+                      "is_int": true,
+                      "description": null,
+                      "next": [
+                        {
+                          "answer": "close-ok",
+                          "is_int": false,
+                          "description": "Depot effectue avec succes \u007F {name} ({number}), Montant: {amount}FCFA, Nouveau solde: {new_balance}FCFA"
+                        },
+                        {
+                          "answer": "close-ins-balance",
+                          "is_int": false,
+                          "description": "Desole, vous n avez pas assez d argent pour effectuer cette operation. Veuillez recharger votre compte dans le point  Mobile Money le plus proche et reessayez"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "answer": "close-not-op",
+                  "is_int": false,
+                  "description": "Compte du receveur pas trouve"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "service": "sdm2nw",
+        "ussd": "*126#",
+        "entry_answer": {
+          "answer": "1",
+          "is_int": true,
+          "description": null,
+          "next": [
+            {
+              "answer": "{phone_number}",
+              "is_int": false,
+              "description": null,
+              "next": [
+                {
+                  "answer": "{amount}",
+                  "is_int": true,
+                  "description": null,
+                  "next": [
+                    {
+                      "answer": "{pin}",
+                      "is_int": true,
+                      "description": null,
+                      "next": [
+                        {
+                          "answer": "close-ok",
+                          "is_int": false,
+                          "description": "Depot effectue avec succes \u007F {name} ({number}), Montant: {amount}FCFA, Nouveau solde: {new_balance}FCFA"
+                        },
+                        {
+                          "answer": "close-ins-balance",
+                          "is_int": false,
+                          "description": "Desole, vous n avez pas assez d argent pour effectuer cette operation. Veuillez recharger votre compte dans le point  Mobile Money le plus proche et reessayez"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "answer": "close-not-op",
+                  "is_int": false,
+                  "description": "Compte du receveur pas trouve"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "service": "remfw",
+        "ussd": "*126#",
+        "entry_answer": {
+          "answer": "2",
+          "is_int": true,
+          "description": null,
+          "next": [
+            {
+              "answer": "1",
+              "is_int": false,
+              "description": null,
+              "next": [
+                {
+                  "answer": "{phone_number}",
+                  "is_int": true,
+                  "description": null,
+                  "next": [
+                    {
+                      "answer": "{amount}",
+                      "is_int": true,
+                      "description": null,
+                      "next": [
+                        {
+                          "answer": "{pin}",
+                          "is_int": true,
+                          "description": null
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "service": "remfoo",
+        "ussd": "*126#",
+        "entry_answer": {
+          "answer": "2",
+          "is_int": true,
+          "description": null,
+          "next": [
+            {
+              "answer": "2",
+              "is_int": false,
+              "description": null,
+              "next": [
+                {
+                  "answer": "{phone_number}",
+                  "is_int": true,
+                  "description": null,
+                  "next": [
+                    {
+                      "answer": "{amount}",
+                      "is_int": true,
+                      "description": null,
+                      "next": [
+                        {
+                          "answer": "{pin}",
+                          "is_int": true,
+                          "description": null
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
   },
   {
-    "model": "modem_api.operatorservice",
-    "pk": 2,
-    "fields": {
-      "ussd": "*126#",
-      "operator_id": 1,
-      "service_id": 2,
-      "created_at": "2019-01-01T13:20:30+01:00",
-      "updated_at":  "2019-01-01T13:20:30+01:00"
-    }
-  },
-  {
-    "model": "modem_api.operatorservice",
-    "pk": 3,
-    "fields": {
-      "ussd": "*126#",
-      "operator_id": 1,
-      "service_id": 3,
-      "created_at": "2019-01-01T13:20:30+01:00",
-      "updated_at":  "2019-01-01T13:20:30+01:00"
-    }
-  },
-  {
-    "model": "modem_api.operatorservice",
-    "pk": 4,
-    "fields": {
-      "ussd": "*126#",
-      "operator_id": 1,
-      "service_id": 4,
-      "created_at": "2019-01-01T13:20:30+01:00",
-      "updated_at":  "2019-01-01T13:20:30+01:00"
-    }
-  },
-  {
-    "model": "modem_api.operatorservice",
-    "pk": 5,
-    "fields": {
-
-      "ussd": "#99#",
-      "service_id": 1,
-      "operator_id": 2,
-      "created_at": "2019-01-01T13:20:30+01:00",
-      "updated_at":  "2019-01-01T13:20:30+01:00"
-    }
-  },
-  {
-    "model": "modem_api.operatorservice",
-    "pk": 6,
-    "fields": {
-      "ussd": "#149#",
-      "operator_id": 2,
-      "service_id": 2,
-      "created_at": "2019-01-01T13:20:30+01:00",
-      "updated_at":  "2019-01-01T13:20:30+01:00"
-    }
-  },
-  {
-    "model": "modem_api.operatorservice",
-    "pk": 7,
-    "fields": {
-      "ussd": "#149#",
-      "operator_id": 2,
-      "service_id": 3,
-      "created_at": "2019-01-01T13:20:30+01:00",
-      "updated_at":  "2019-01-01T13:20:30+01:00"
-    }
-  },
-  {
-    "model": "modem_api.operatorservice",
-    "pk": 8,
-    "fields": {
-      "ussd": "#149#",
-      "operator_id": 2,
-      "service_id": 4,
-      "created_at": "2019-01-01T13:20:30+01:00",
-      "updated_at":  "2019-01-01T13:20:30+01:00"
-    }
+    "operator": "orange-cm",
+    "services": [
+      {
+        "service": "phn",
+        "ussd": "#99#",
+        "entry_answer": {
+          "answer": "close",
+          "is_int": false,
+          "description": "MSISDN:\r{number}"
+        }
+      },
+      {
+        "service": "bal",
+        "ussd": "#149#",
+        "entry_answer": {
+          "answer": "6",
+          "is_int": true,
+          "description": null,
+          "next": [
+            {
+              "answer": "2",
+              "is_int": true,
+              "description": null,
+              "next": [
+                {
+                  "answer": "{pin}",
+                  "is_int": true,
+                  "description": null,
+                  "next": [
+                    {
+                      "answer": "close",
+                      "is_int": false,
+                      "description": "Le solde de votre compte est de {balance} FCFA."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "service": "sdm2w",
+        "ussd": "#149#",
+        "entry_answer": {
+          "answer": "1",
+          "is_int": true,
+          "description": null,
+          "next": [
+            {
+              "answer": "{amount}",
+              "is_int": true,
+              "description": null,
+              "next": [
+                {
+                  "answer": "{phone_number}",
+                  "is_int": false,
+                  "description": "Depot de {amount} FCFA sur le compte mobile {phone_number} {name}. Entrez votre code secret pour confirmer le depot ou 2 pour annuler",
+                  "next": [
+                    {
+                      "answer": "{pin}",
+                      "is_int": false,
+                      "description": null,
+                      "next": [
+                        {
+                          "answer": "close-ok",
+                          "is_int": false,
+                          "description": "Depot effectue. Vous allez recevoir les details de la transaction par SMS. Merci d avoir utilise le service Orange Money."
+                        },
+                        {
+                          "answer": "close-min-amount",
+                          "is_int": false,
+                          "description": "Le montant de la transaction est inferieur au montant minimum possible pour ce service Veuillez saisir un montant correct"
+                        },
+                        {
+                          "answer": "close-ins-balance",
+                          "is_int": false,
+                          "description": "Le solde du compte du payeur est insuffisant Veuillez saisir un montant correct"
+                        },
+                        {
+                          "answer": "1",
+                          "is_int": false,
+                          "description": "Vous venez d effectuer une transaction identique. Si vous souhaitez quand meme poursuivre tapez 1, sinon tapez 2 pour annuler",
+                          "next": [
+                            {
+                              "answer": "close-ok",
+                              "is_int": false,
+                              "description": "Depot effectue. Vous allez recevoir les details de la transaction par SMS. Merci d avoir utilise le service Orange Money."
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "answer": "close-no-wallet",
+                      "is_int": false,
+                      "description": "Depot de {amount} FCFA sur le compte mobile {phone_number} qui n'a pas de compte . Entrez votre code secret pour confirmer le depot ou 2 pour annuler"
+                    },
+                    {
+                      "answer": "close-not-op",
+                      "is_int": false,
+                      "description": "The subscriber does not exist or is not active."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "service": "sdm2nw",
+        "ussd": "#149#",
+        "entry_answer": {
+          "answer": "2",
+          "is_int": true,
+          "description": null,
+          "next": [
+            {
+              "answer": "{phone_number}",
+              "is_int": true,
+              "description": null,
+              "next": [
+                {
+                  "answer": "{amount}",
+                  "is_int": false,
+                  "description": null,
+                  "next": [
+                    {
+                      "answer": "{pin}",
+                      "is_int": false,
+                      "description": null,
+                      "next": [
+                        {
+                          "answer": "close-ok",
+                          "is_int": false,
+                          "description": "Depot effectue. Vous allez recevoir les details de la transaction par SMS. Merci d avoir utilise le service Orange Money."
+                        },
+                        {
+                          "answer": "close-min-amount",
+                          "is_int": false,
+                          "description": "Le montant de la transaction est inferieur au montant minimum possible pour ce service Veuillez saisir un montant correct"
+                        },
+                        {
+                          "answer": "close-ins-balance",
+                          "is_int": false,
+                          "description": "Le solde du compte du payeur est insuffisant Veuillez saisir un montant correct"
+                        },
+                        {
+                          "answer": "1",
+                          "is_int": false,
+                          "description": "Vous venez d effectuer une transaction identique. Si vous souhaitez quand meme poursuivre tapez 1, sinon tapez 2 pour annuler",
+                          "next": [
+                            {
+                              "answer": "close-ok",
+                              "is_int": false,
+                              "description": "Depot effectue. Vous allez recevoir les details de la transaction par SMS. Merci d avoir utilise le service Orange Money."
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "service": "sdm2oo",
+        "ussd": "#149#",
+        "entry_answer": {
+          "answer": "4",
+          "is_int": true,
+          "description": null,
+          "next": [
+            {
+              "answer": "{phone_number}",
+              "is_int": true,
+              "description": null,
+              "next": [
+                {
+                  "answer": "{amount}",
+                  "is_int": false,
+                  "description": null,
+                  "next": [
+                    {
+                      "answer": "{pin}",
+                      "is_int": false,
+                      "description": null,
+                      "next": [
+                        {
+                          "answer": "close-ok",
+                          "is_int": false,
+                          "description": "Depot effectue. Vous allez recevoir les details de la transaction par SMS. Merci d avoir utilise le service Orange Money."
+                        },
+                        {
+                          "answer": "close-min-amount",
+                          "is_int": false,
+                          "description": "Le montant de la transaction est inferieur au montant minimum possible pour ce service Veuillez saisir un montant correct"
+                        },
+                        {
+                          "answer": "close-ins-balance",
+                          "is_int": false,
+                          "description": "Le solde du compte du payeur est insuffisant Veuillez saisir un montant correct"
+                        },
+                        {
+                          "answer": "1",
+                          "is_int": false,
+                          "description": "Vous venez d effectuer une transaction identique. Si vous souhaitez quand meme poursuivre tapez 1, sinon tapez 2 pour annuler",
+                          "next": [
+                            {
+                              "answer": "close-ok",
+                              "is_int": false,
+                              "description": "Depot effectue. Vous allez recevoir les details de la transaction par SMS. Merci d avoir utilise le service Orange Money."
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "service": "remfw",
+        "ussd": "#149#",
+        "entry_answer": {
+          "answer": "2",
+          "is_int": true,
+          "description": null,
+          "next": [
+            {
+              "answer": "1",
+              "is_int": true,
+              "description": null,
+              "next": [
+                {
+                  "answer": "{amount}",
+                  "is_int": false,
+                  "description": null,
+                  "next": [
+                    {
+                      "answer": "{amount}",
+                      "is_int": false,
+                      "description": null,
+                      "next": [
+                        {
+                          "answer": "{pin}",
+                          "is_int": false,
+                          "description": null,
+                          "next": [
+                            {
+                              "answer": "close-ok",
+                              "is_int": false,
+                              "description": "Depot effectue. Vous allez recevoir les details de la transaction par SMS. Merci d avoir utilise le service Orange Money.",
+                              "next": [
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "answer": "close-min-amount",
+                          "is_int": false,
+                          "description": "Le montant de la transaction est inferieur au montant minimum possible pour ce service Veuillez saisir un montant correct"
+                        },
+                        {
+                          "answer": "close-ins-balance",
+                          "is_int": false,
+                          "description": "Le solde du compte du payeur est insuffisant Veuillez saisir un montant correct"
+                        },
+                        {
+                          "answer": "1",
+                          "is_int": false,
+                          "description": "Vous venez d effectuer une transaction identique. Si vous souhaitez quand meme poursuivre tapez 1, sinon tapez 2 pour annuler",
+                          "next": [
+                            {
+                              "answer": "close-ok",
+                              "is_int": false,
+                              "description": "Depot effectue. Vous allez recevoir les details de la transaction par SMS. Merci d avoir utilise le service Orange Money."
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "service": "remfoo",
+        "ussd": "#149#",
+        "entry_answer": {
+          "answer": "2",
+          "is_int": true,
+          "description": null,
+          "next": [
+            {
+              "answer": "2",
+              "is_int": true,
+              "description": null,
+              "next": [
+                {
+                  "answer": "{amount}",
+                  "is_int": false,
+                  "description": null,
+                  "next": [
+                    {
+                      "answer": "{amount}",
+                      "is_int": false,
+                      "description": null,
+                      "next": [
+                        {
+                          "answer": "{pin}",
+                          "is_int": false,
+                          "description": null,
+                          "next": [
+                            {
+                              "answer": "close-ok",
+                              "is_int": false,
+                              "description": "Depot effectue. Vous allez recevoir les details de la transaction par SMS. Merci d avoir utilise le service Orange Money.",
+                              "next": [
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "answer": "close-min-amount",
+                          "is_int": false,
+                          "description": "Le montant de la transaction est inferieur au montant minimum possible pour ce service Veuillez saisir un montant correct"
+                        },
+                        {
+                          "answer": "close-ins-balance",
+                          "is_int": false,
+                          "description": "Le solde du compte du payeur est insuffisant Veuillez saisir un montant correct"
+                        },
+                        {
+                          "answer": "1",
+                          "is_int": false,
+                          "description": "Vous venez d effectuer une transaction identique. Si vous souhaitez quand meme poursuivre tapez 1, sinon tapez 2 pour annuler",
+                          "next": [
+                            {
+                              "answer": "close-ok",
+                              "is_int": false,
+                              "description": "Depot effectue. Vous allez recevoir les details de la transaction par SMS. Merci d avoir utilise le service Orange Money."
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
   }
-
 ]

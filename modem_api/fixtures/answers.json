@@ -7,7 +7,7 @@
       "order": 1,
       "is_int": false,
       "operator_service_id": 1,
-      "description": "msdin",
+      "description": "Y'ello! Vous etes actuellement sur le plan tarifaire MTN GO et votre numero est {number}.",
       "created_at": "2019-01-01T13:20:30+01:00",
       "updated_at": "2019-01-01T13:20:30+01:00"
     }
@@ -46,7 +46,7 @@
       "order": 3,
       "is_int": true,
       "operator_service_id": 2,
-      "description": null,
+      "description": "Solde Mobile Money: {balance} FCFA Solde recharge: {recharge} FCFA Solde comissions {comission} FCFA",
       "created_at": "2019-01-01T13:20:30+01:00",
       "updated_at": "2019-01-01T13:20:30+01:00"
     }
@@ -111,7 +111,7 @@
       "order": 1,
       "is_int": false,
       "operator_service_id": 5,
-      "description": "your number",
+      "description": "MSISDN:\r{number}",
       "created_at": "2019-01-01T13:20:30+01:00",
       "updated_at": "2019-01-01T13:20:30+01:00"
     }

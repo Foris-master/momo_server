@@ -7,6 +7,7 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from modem_api.models import Operator
 from momo_api.filters import TransactionFilter
 from momo_api.models import MobileWallet, Transaction, Proof
 from momo_api.serializers import MobileWalletSerializer, TransactionSerializer, ProofSerializer
@@ -59,24 +60,39 @@ def search_transaction(request):
 
 class TransactionView(APIView):
     authentication_classes = [OAuth2Authentication]
-    # serializer_class = TransactionSerializer
+    queryset = Transaction.objects.all()
+    serializer_class = TransactionSerializer
     permission_classes = [TokenHasScope]
     required_scopes = []
 
-    def post(self, request):
+    def post(self, request, version):
         params = request.POST.copy()
         user = AccessToken.objects.filter(token=request.auth).first().application.user
         params['user'] = user.id
 
-        if 'mobile_wallet' in params and MobileWallet.objects.filter(tag=params['mobile_wallet']).exists():
-            mw = MobileWallet.objects.filter(tag=params['mobile_wallet']).first()
-            params['mobile_wallet'] = mw.id
+        if 'mobile_wallet' in params and Operator.objects.filter(tag=params['mobile_wallet']).exists():
+            op = Operator.objects.filter(tag=params['mobile_wallet']).get()
+            if MobileWallet.objects.filter(operator_id=op.id, user_id=user.id).exists():
+                mw = MobileWallet.objects.filter(operator_id=op.id, user_id=user.id).get()
+                params['mobile_wallet'] = mw.id
+            else:
+                return Response({'mobile_wallet': 'invalid mobile_wallet'})
         else:
             return Response({'mobile_wallet': 'invalid mobile_wallet'})
 
         serializer = TransactionSerializer(data=params)
         if serializer.is_valid(raise_exception=True):
-            if int(params['amount']) > mw.max_balance:
+            params['amount'] = int(float(params['amount']))
+            params['recipient'] = params['recipient'].replace('+237','')
+            print(params['amount'],mw.max_balance,mw.tag)
+            if params['amount'] > mw.max_balance:
                 return Response({'amount': 'insufficient founds'})
             serializer.save()
             return Response(serializer.data)
+
+    def get(self, request, version):
+        print(request.GET)
+        user = AccessToken.objects.filter(token=request.auth).first().application.user
+        transactions = Transaction.objects.filter(user=user)
+        serializer = TransactionSerializer(transactions, many=True)
+        return Response(serializer.data)

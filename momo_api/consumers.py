@@ -58,7 +58,6 @@ class ModemConsumer(WebsocketConsumer):
         self.modem = Modem.objects.filter(tag=tag).first()
 
         if self.modem is not None:
-            print(state)
             self.modem.is_active=state
             self.modem.save()
 

@@ -4,6 +4,7 @@ import json
 from django.contrib.auth.models import User
 
 # Create your views here.
+from django.core.management import call_command
 from django.http import HttpResponse
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
@@ -85,6 +86,21 @@ def api_root(request, format=None):
     # })
 
 
+@api_view(['GET'])  # new
+@authentication_classes([])
+@permission_classes([])
+def modem_detect(request, format=None):
+    call_command('detectmodems')
+    return Response({
+        'health': 'request send',
+
+    })
+    # return Response({
+    #     'users': reverse('user-list', request=request, format=format),
+    #     'modems': reverse('modem-list', request=request, format=format)
+    # })
+
+
 @method_decorator(csrf_exempt, name="dispatch")
 class TokenView(APIView, OAuthLibMixin):
     permission_classes = (permissions.AllowAny,)
@@ -98,8 +114,13 @@ class TokenView(APIView, OAuthLibMixin):
         cred_key = 'HTTP_AUTHORIZATION'
         scopes = data.get('scope')
         if cred_key not in request.META:
-            return Response({'message': 'invalid client credential'}, status=404)
-        client_id, client_secret = decode_credential(request.META[cred_key])
+            if 'client_id' in data and 'client_secret' in data:
+                client_id = data.get('client_id')
+                client_secret = data.get('client_secret')
+            else:
+                return Response({'message': 'invalid client credential'}, status=404)
+        else:
+            client_id, client_secret = decode_credential(request.META[cred_key])
 
         try:
             app = Application.objects.filter(client_id=client_id).first()

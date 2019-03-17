@@ -33,19 +33,25 @@ class OperatorSerializer(serializers.ModelSerializer):
         model = Operator
         fields = '__all__'
 
+class RecursiveSerializer(serializers.Serializer):
+    def to_representation(self, value):
+        serializer = self.parent.parent.__class__(value, context=self.context)
+        return serializer.data
 
 class AnswerSerializer(serializers.ModelSerializer):
+    # next_answers= AnswerSerializer(many=True, read_only=True)
+    next_answers = RecursiveSerializer(many=True, read_only=True)
     class Meta:
         model = Answer
-        fields = '__all__'
+        fields = ('id','answer','is_int','order','description','next_answers')
 
 
 class OperatorServiceSerializer(serializers.ModelSerializer):
-    answers = AnswerSerializer(many=True, read_only=True)
-
+    # answers = AnswerSerializer(many=True, read_only=True)
+    answer = AnswerSerializer(read_only=True)
     class Meta:
         model = OperatorService
-        fields = ('id', 'operator', 'ussd', 'answers')
+        fields = ('id', 'operator', 'ussd', 'answer')
 
 
 class ServiceSerializer(serializers.ModelSerializer):
@@ -60,3 +66,6 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username',)
+        extra_kwargs = {
+            'password': {'write_only': True}
+        }

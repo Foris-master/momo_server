@@ -25,9 +25,9 @@
     "model": "modem_api.service",
     "pk": 3,
     "fields": {
-      "name": "send money",
-      "tag": "sdm",
-      "description": "make station send money to user",
+      "name": "send money to wallet",
+      "tag": "sdm2w",
+      "description": "make station send money to user in same operator who has wallet",
       "created_at": "2019-01-01T13:20:30+01:00",
       "updated_at":  "2019-01-01T13:20:30+01:00"
     }
@@ -35,6 +35,28 @@
   {
     "model": "modem_api.service",
     "pk": 4,
+    "fields": {
+      "name": "send money to no wallet",
+      "tag": "sdm2nw",
+      "description": "make station send money to user in same operator who does not has wallet",
+      "created_at": "2019-01-01T13:20:30+01:00",
+      "updated_at":  "2019-01-01T13:20:30+01:00"
+    }
+  },
+  {
+    "model": "modem_api.service",
+    "pk": 5,
+    "fields": {
+      "name": "send money to other operator",
+      "tag": "sdm2oo",
+      "description": "make station send money to other operator user",
+      "created_at": "2019-01-01T13:20:30+01:00",
+      "updated_at":  "2019-01-01T13:20:30+01:00"
+    }
+  },
+  {
+    "model": "modem_api.service",
+    "pk": 6,
     "fields": {
       "name": "retrieve money",
       "tag": "rem",
