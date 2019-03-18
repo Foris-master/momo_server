@@ -13,7 +13,7 @@ class ProofSerializer(serializers.ModelSerializer):
 class TransactionSerializer(serializers.ModelSerializer):
     # mobile_wallet = serializers.RelatedField(source=MobileWallet, read_only=True)
     # user = serializers.RelatedField(source=User, read_only=True)
-    proofs = ProofSerializer(many=True)
+    # proofs = ProofSerializer(many=True)
 
     class Meta:
         model = Transaction

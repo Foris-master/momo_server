@@ -274,7 +274,7 @@
                     {
                       "answer": "{pin}",
                       "is_int": false,
-                      "description": null,
+                      "description": "Depot de {amount} FCFA sur le compte mobile {recipient} {name}. Entrez votre code secret pour confirmer le depot ou 2 pour annuler",
                       "next": [
                         {
                           "answer": "close-ok",

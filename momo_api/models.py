@@ -15,7 +15,6 @@ from rest_framework.compat import MinLengthValidator
 from modem_api.models import Operator, Station, ServiceStation, Service, OperatorService
 from modem_api.serializers import OperatorServiceSerializer, StationSerializer, ModemSerializer
 
-
 TRANSACTION_STATUSES = [('new', 'NEW'), ('pending', 'PENDING'), ('paid', 'PAID'), ('proven', 'PROVEN'),
                         ('cancel', 'CANCEL')]
 
@@ -112,12 +111,10 @@ class Transaction(models.Model):
 def proceed_transaction(sender, **kwargs):
     transaction = kwargs.get('instance')
 
-    if kwargs.get('created', False):
+    if kwargs.get('created') is False:
         if transaction.status == 'paid' or transaction.status == 'proven':
-            try:
 
-                # url = url + 'oauth/token/'
-                url = transaction.user.oauth2_provider_application.first().redirect_uris
+            try:
                 dat = {
                     'id': transaction.id,
                     'amount': transaction.amount,
@@ -128,7 +125,14 @@ def proceed_transaction(sender, **kwargs):
                     'created_at': transaction.created_at,
                     'updated_at': transaction.updated_at
                 }
-                if type(url) is not str:
+                if transaction.status == 'proven':
+                    p = transaction.proof_set.first()
+                    dat['mno_id'] = p.mno_id
+                    dat['mno_respond'] = p.mno_respond
+
+                url = transaction.user.oauth2_provider_application.first().redirect_uris
+
+                if type(url) is str:
                     r = requests.post(
                         url,
                         data=dat,
@@ -146,7 +150,7 @@ def proceed_transaction(sender, **kwargs):
 class Proof(models.Model):
     amount = models.IntegerField(blank=False)
     mno_id = models.CharField(blank=False, max_length=100)
-    mno_respond = models.CharField(blank=False, max_length=255)
+    mno_respond = models.TextField()
     station = models.ForeignKey(Station, on_delete=models.CASCADE)
     transaction = models.ForeignKey(Transaction, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)

@@ -104,7 +104,7 @@ class Station(models.Model):
     phone_number = models.CharField(validators=[MinLengthValidator(9)], max_length=14, blank=False)
     imei = models.CharField(unique=True, max_length=20, null=True, blank=True)
     imsi = models.CharField(max_length=20)
-    port = models.CharField(max_length=10, null=True, blank=True)
+    port = models.CharField(max_length=20, null=True, blank=True)
     operator = models.ForeignKey(Operator, on_delete=models.CASCADE, related_name='stations')
     modem = models.ForeignKey(Modem, on_delete=models.CASCADE, null=False, blank=False, related_name='stations')
     description = models.TextField(blank=True)

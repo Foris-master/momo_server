@@ -11,6 +11,7 @@ urlpatterns = [
     path('mobile_wallets/', views.MobileWalletList.as_view(), name='mobile_wallet-list'),
     path('mobile_wallets/<int:pk>/', views.MobileWalletDetail.as_view(), name='mobile_wallet-detail'),
     url(r'^transactions/search/$', views.search_transaction, name='transactions-search'),
+    url(r'^transaction/prove/$', views.prove_transaction, name='transactions-proof'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
