@@ -5,7 +5,7 @@ from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
 from django_cron import CronJobBase, Schedule
 
-from modem_api.models import Service, OperatorService, ServiceStation
+from modem_api.models import Service, OperatorService, ServiceStation, Station
 from modem_api.serializers import OperatorServiceSerializer, StationSerializer, ModemSerializer
 from momo_api.models import Transaction
 
@@ -35,9 +35,10 @@ class ProceedTransactionJob(CronJobBase):
             data = OperatorServiceSerializer(op_ser).data
             stations = transaction.mobile_wallet.stations
             station = stations.first()
+            stations = [station for station in stations.all() if station.state == 'free']
             ss1 = ServiceStation.objects.filter(station=station, service=service2).first()
 
-            for stat in stations.all():
+            for stat in stations:
                 ss2 = ServiceStation.objects.filter(station=stat, service=service2).first()
                 if ss1.balance < ss2.balance:
                     station = stat
@@ -58,6 +59,8 @@ class ProceedTransactionJob(CronJobBase):
             # send message
             modem = station.modem
             gn = 'modem_%s' % modem.tag
+            station.state = 'busy'
+            station.save()
             station = StationSerializer(station).data
             message = {
                 'transaction': {'amount': transaction.amount, 'is_deposit': transaction.is_deposit,

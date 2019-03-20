@@ -103,21 +103,31 @@ class ModemConsumer(WebsocketConsumer):
         # print(response['data'])
         transaction = response['data']['transaction_id']
         station = response['data']['station_id']
-        transaction = Transaction.objects.filter(id=transaction).first()
-        station = Station.objects.filter(id=station).first()
-        p = Proof(transaction=transaction, station=station)
-        p.amount = transaction.amount
-        p.mno_id = 'not yet implemented'
-        p.mno_respond = response['data']['response']
-        p.save()
-        if response['data']['last_answer'] == 'close-ok':
+        transaction = Transaction.objects.filter(id=transaction).get()
+        station = Station.objects.filter(id=station).get()
+        # p = Proof(transaction=transaction, station=station)
+        # p.amount = transaction.amount
+        # p.mno_id = 'not yet implemented'
+        # p.mno_respond = response['data']['response']
+        # p.save()
+
+        if response['data']['last_answer'] == 'timeout':
+            transaction.history = 'ussd timeout (maybe service unavailable) system will auto retry'
+        if response['data']['last_answer'] == 'unknow':
+            transaction.history = 'ussd unknow error (maybe service down) system will auto retry'
+        elif response['data']['last_answer'] == 'close-ok':
             transaction.status = 'paid'
+            transaction.history = response['data']['response']
+            service2 = Service.objects.filter(tag='bal').first()
+            ss1 = ServiceStation.objects.filter(station=station, service=service2).first()
+            ss1.balance -= transaction.amount
+            ss1.save()
         else:
+            transaction.history = response['data']['response']
             transaction.status = 'failed'
-        service2 = Service.objects.filter(tag='bal').first()
-        ss1 = ServiceStation.objects.filter(station=station, service=service2).first()
-        ss1.balance -= transaction.amount
-        ss1.save()
+        station.state = 'free'
+        station.save()
+
         transaction.save()
 
     commands = {

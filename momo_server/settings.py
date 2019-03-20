@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv('APP_SECRET')
 DEBUG = os.getenv('APP_DEBUG')
 
 # ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = [os.getenv('APP_URL'), '172.31.27.8', '10.0.2.2', 'localhost']
+ALLOWED_HOSTS = [os.getenv('APP_URL'), '172.31.27.8', '10.0.2.2', 'localhost','52.89.249.144']
 
 # Application definition
 
