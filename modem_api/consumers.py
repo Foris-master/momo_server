@@ -113,7 +113,7 @@ class ModemConsumer(WebsocketConsumer):
 
         if response['data']['last_answer'] == 'timeout':
             transaction.history = 'ussd timeout (maybe service unavailable) system will auto retry'
-        if response['data']['last_answer'] == 'unknow':
+        elif response['data']['last_answer'] == 'unknow':
             transaction.history = 'ussd unknow error (maybe service down) system will auto retry'
         elif response['data']['last_answer'] == 'close-ok':
             transaction.status = 'paid'

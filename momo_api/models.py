@@ -16,7 +16,7 @@ from modem_api.models import Operator, Station, ServiceStation, Service, Operato
 from modem_api.serializers import OperatorServiceSerializer, StationSerializer, ModemSerializer
 
 TRANSACTION_STATUSES = [('new', 'NEW'), ('pending', 'PENDING'), ('paid', 'PAID'), ('proven', 'PROVEN'),
-                        ('cancel', 'CANCEL')]
+                        ('failed', 'FAILED'), ('cancel', 'CANCEL')]
 
 
 class MobileWallet(models.Model):

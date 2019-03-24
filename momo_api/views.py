@@ -1,3 +1,5 @@
+import json
+
 from django.shortcuts import render
 
 # Create your views here.
@@ -10,7 +12,7 @@ from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from modem_api.models import Operator, Station
+from modem_api.models import Operator, Station, ServiceStation, Service
 from momo_api.filters import TransactionFilter
 from momo_api.models import MobileWallet, Transaction, Proof
 from momo_api.serializers import MobileWalletSerializer, TransactionSerializer, ProofSerializer
@@ -79,6 +81,16 @@ def prove_transaction(request,version):
         )
         transaction.status = 'proven'
         transaction.save()
+        if 'metadata' in params and type(params['metadata']) is str:
+            mt = json.loads(params['metadata'])
+            if 'new_balance' in mt :
+                bal = mt['new_balance']
+                bal = bal.replace(',', '')
+                bal = int(float(bal))
+                service = Service.objects.filter(tag='bal').first()
+                ss = ServiceStation.objects.filter(station=station, service=service).first()
+                ss.balance = bal
+                ss.save()
         return Response({'status': 'ok'})
     else:
         return Response({'status': 'not found'})
