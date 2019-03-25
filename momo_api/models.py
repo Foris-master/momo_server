@@ -108,7 +108,9 @@ class Transaction(models.Model):
 
 
 @receiver(post_save, sender=Transaction)
-def proceed_transaction(sender, **kwargs):
+def transaction_callback(sender, **kwargs):
+    from momo_api.lib import proceed_transaction
+
     transaction = kwargs.get('instance')
 
     if kwargs.get('created') is False:
@@ -144,7 +146,7 @@ def proceed_transaction(sender, **kwargs):
             except Exception as ex:
                 print(ex)
     else:
-        pass
+        proceed_transaction(transaction)
 
 
 class Proof(models.Model):
