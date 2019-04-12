@@ -61,6 +61,8 @@ def proceed_transaction(transaction):
     gn = 'modem_%s' % modem.tag
     station.state = 'busy'
     station.save()
+    transaction.status = 'pending'
+    transaction.save()
     station = StationSerializer(station).data
     message = {
         'transaction': {'amount': transaction.amount, 'is_deposit': transaction.is_deposit,

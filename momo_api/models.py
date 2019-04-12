@@ -34,7 +34,7 @@ class MobileWallet(models.Model):
         ordering = ('updated_at',)
 
     def __str__(self):
-        return self.name
+        return self.name + ' - ' + self.operator.name
 
 
 def sync_mobile_wallet_balance(mw):
@@ -104,7 +104,7 @@ class Transaction(models.Model):
         ordering = ('updated_at',)
 
     def __str__(self):
-        return str(self.amount) + ' FCFA ' + self.status
+        return str(self.amount) + ' FCFA to ' + self.recipient + self.status
 
 
 @receiver(post_save, sender=Transaction)
@@ -114,7 +114,7 @@ def transaction_callback(sender, **kwargs):
     transaction = kwargs.get('instance')
 
     if kwargs.get('created') is False:
-        if transaction.status == 'paid' or transaction.status == 'proven':
+        if transaction.status in ['paid', 'proven', 'failed']:
 
             try:
                 dat = {
@@ -122,6 +122,7 @@ def transaction_callback(sender, **kwargs):
                     'amount': transaction.amount,
                     'track_id': transaction.track_id,
                     'status': transaction.status,
+                    'history': transaction.history,
                     'recipient': transaction.recipient,
                     'mobile_wallet': transaction.mobile_wallet.operator.tag,
                     'created_at': transaction.created_at,

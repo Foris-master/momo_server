@@ -25,7 +25,7 @@ class Modem(models.Model):
         ordering = ('updated_at',)
 
     def __str__(self):
-        return self.name
+        return self.name+" "+self.tag
 
     @staticmethod
     def remember_state(sender, **kwargs):
@@ -46,7 +46,7 @@ class Operator(models.Model):
         ordering = ('updated_at',)
 
     def __str__(self):
-        return self.name
+        return self.name+" "+self.country
 
 
 class Service(models.Model):
@@ -117,7 +117,7 @@ class Station(models.Model):
         unique_together = (('phone_number', 'modem',), ('port', 'modem',))
 
     def __str__(self):
-        return self.name
+        return self.name+" "+self.phone_number+" "+self.operator.name+" "+self.modem.name
 
 
 @receiver(post_save, sender=Modem)
