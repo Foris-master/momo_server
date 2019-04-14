@@ -7,7 +7,7 @@
       "is_superuser": true,
       "is_staff": true,
       "username": "root",
-      "email": "root@mailinator.com",
+      "email": "infos@peexit.com",
       "is_active": true,
       "date_joined": "2019-01-01T13:20:30+01:00"
     }
@@ -16,13 +16,15 @@
     "model": "auth.user",
     "pk": 2,
     "fields": {
-      "password": "modem123",
+      "password": "bonamoussadi123",
       "is_superuser": false,
-      "username": "modem",
+      "username": "modem_total_bonamoussadi",
       "email": "modem@mailinator.com",
       "is_active": true,
       "date_joined": "2019-01-01T13:20:30+01:00",
-      "groups": [1]
+      "groups": [
+        1
+      ]
     }
   },
   {
@@ -35,20 +37,99 @@
       "email": "peex@mailinator.com",
       "is_active": true,
       "date_joined": "2019-01-01T13:20:30+01:00",
-      "groups": [2]
+      "groups": [
+        2
+      ]
     }
   },
   {
     "model": "auth.user",
     "pk": 4,
     "fields": {
-      "password": "manager123",
+      "password": "foris123",
       "is_superuser": false,
-      "username": "manager",
-      "email": "manager@mailinator.com",
+      "username": "foris",
+      "is_staff": true,
+      "email": "evarisfomekong@gmail.com",
+      "first_name": "Evaris",
+      "last_name": "Fomekong",
       "is_active": true,
       "date_joined": "2019-01-01T13:20:30+01:00",
-      "groups": [3]
+      "groups": [
+        3
+      ]
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 5,
+    "fields": {
+      "password": "stan123",
+      "is_superuser": false,
+      "username": "stan",
+      "is_staff": true,
+      "email": "sbianou@peexit.com",
+       "first_name": "Stanislas",
+      "last_name": "Bianou",
+      "is_active": true,
+      "date_joined": "2019-01-01T13:20:30+01:00",
+      "groups": [
+        3
+      ]
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 6,
+    "fields": {
+      "password": "raoul123",
+      "is_superuser": false,
+      "username": "raoul",
+      "is_staff": true,
+      "email": "rsigne@peexit.com",
+       "first_name": "Raoul",
+      "last_name": "Signe",
+      "is_active": true,
+      "date_joined": "2019-01-01T13:20:30+01:00",
+      "groups": [
+        3
+      ]
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 7,
+    "fields": {
+      "password": "armel123",
+      "is_superuser": false,
+      "username": "armel",
+      "is_staff": true,
+      "email": "ankentsop@peexit.com",
+      "first_name": "Armel",
+      "last_name": "Nkentsop",
+      "is_active": true,
+      "date_joined": "2019-01-01T13:20:30+01:00",
+      "groups": [
+        3
+      ]
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 8,
+    "fields": {
+      "password": "michele123",
+      "is_superuser": false,
+      "username": "michele",
+      "is_staff": true,
+      "email": "mkuiatcho@peexit.com",
+      "first_name": "Michèle",
+      "last_name": "Kuiatcho",
+      "is_active": true,
+      "date_joined": "2019-01-01T13:20:30+01:00",
+      "groups": [
+        3
+      ]
     }
   }
 ]

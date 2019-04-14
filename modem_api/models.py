@@ -1,6 +1,4 @@
-from django.contrib.auth.models import Group
-from django.core.mail import send_mail, EmailMessage
-from django.db import models
+from django.contrib.auth.models import Group, User
 
 # Create your models here.
 
@@ -8,9 +6,24 @@ from django.db import models
 from django.db.models.signals import post_init, post_save
 from django.dispatch import receiver
 from fernet_fields import EncryptedCharField
+from phonenumber_field.modelfields import PhoneNumberField
 from rest_framework.compat import MinLengthValidator
 
+from modem_api.utils import send_modem_state_sms, send_modem_state_email
+
 STATION_STATES = [('free', 'FREE'), ('busy', 'BUSY'), ('offline', 'OFFLINE')]
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    phone_number = PhoneNumberField()
+    department = models.CharField(max_length=100, null=True)
+
+    class Meta:
+        ordering = ('phone_number',)
+
+    def __str__(self):
+        return self.phone_number.as_international + " for user " + self.user.get_full_name()
 
 
 class Modem(models.Model):
@@ -25,7 +38,7 @@ class Modem(models.Model):
         ordering = ('updated_at',)
 
     def __str__(self):
-        return self.name+" "+self.tag
+        return self.name + " " + self.tag
 
     @staticmethod
     def remember_state(sender, **kwargs):
@@ -46,7 +59,7 @@ class Operator(models.Model):
         ordering = ('updated_at',)
 
     def __str__(self):
-        return self.name+" "+self.country
+        return self.name + " " + self.country
 
 
 class Service(models.Model):
@@ -68,7 +81,7 @@ class Answer(models.Model):
     answer = models.CharField(max_length=20, blank=False)
     is_int = models.BooleanField(blank=False, default=False)
     order = models.IntegerField(blank=False)
-    parent = models.ForeignKey('self', blank=True, null=True,on_delete=models.CASCADE, related_name='next_answers')
+    parent = models.ForeignKey('self', blank=True, null=True, on_delete=models.CASCADE, related_name='next_answers')
     # operator_service = models.ForeignKey(OperatorService, on_delete=models.CASCADE, related_name='answers')
     description = models.CharField(max_length=255, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -117,7 +130,7 @@ class Station(models.Model):
         unique_together = (('phone_number', 'modem',), ('port', 'modem',))
 
     def __str__(self):
-        return self.name+" "+self.phone_number+" "+self.operator.name+" "+self.modem.name
+        return self.name + " " + self.phone_number + " " + self.operator.name + " " + self.modem.name
 
 
 @receiver(post_save, sender=Modem)
@@ -131,23 +144,10 @@ def map_station_modem_state(sender, **kwargs):
         for station in modem.stations.all():
             station.state = 'offline'
             station.save()
-        if (modem.is_active != modem.previous_is_active) and not modem.is_active:
-            body = 'The modem named ' + modem.name + ' is offline please check it ( internet connection ; electricity ' \
-                                                     '; websocket client) '
+    if modem.is_active != modem.previous_is_active :
 
-            users = Group.objects.filter(name='manager').get().user_set
-            recipients = list(i for i in users.values_list('email', flat=True) if bool(i))
-            email = EmailMessage('Modem ' + modem.name + ' ( ' + modem.tag + ' ) is offline (please check) !!!',
-                                 body,
-                                 to=recipients)
-            # email.send()
-            # print('email send')
-            # send_mail(
-            #     'Modem ' + modem.name + ' ( '+modem.tag+' ) is offline (please check) !!!',
-            #     body,
-            #     recipient_list=['evarisfomekong@gmail.com'],
-            #     fail_silently=False,
-            # )
+        send_modem_state_email(modem)
+        send_modem_state_sms(modem)
 
 
 class ServiceStation(models.Model):

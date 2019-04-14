@@ -3,9 +3,9 @@
     "model": "modem_api.modem",
     "pk": 1,
     "fields": {
-      "name": "modem",
-      "tag": "emia",
-      "description": "modem situa a emia",
+      "name": "modem total bonamoussadi",
+      "tag": "bonas",
+      "description": "modem situe a total bonamoussadi dans les locaux de peex",
       "created_at": "2019-01-01T13:20:30+01:00",
       "updated_at":  "2019-01-01T13:20:30+01:00"
 

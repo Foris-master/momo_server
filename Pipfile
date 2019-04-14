@@ -7,11 +7,9 @@ verify_ssl = true
 pypiwin32 = "*"
 
 [packages]
-django = "*"
+django = "==2.1.7"
 djangorestframework = "*"
 django-oauth-toolkit = "*"
-channels = "*"
-channels-redis = "*"
 django-cors-middleware = "*"
 psycopg2 = "*"
 python-dotenv = "*"
@@ -20,6 +18,11 @@ django-fernet-fields = "*"
 django-extensions = "*"
 requests = "*"
 django-cron = "*"
+django-twilio = "*"
+channels = "*"
+channels-redis = "*"
+django-phonenumber-field = "*"
+phonenumbers = "*"
 
 [requires]
 python_version = "3.7"

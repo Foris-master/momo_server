@@ -19,7 +19,7 @@ class Command(BaseCommand):
         for user in User.objects.all():
             user.set_password(user.password)
             user.save()
-        call_command('loaddata', 'applications', 'modems', 'operators', 'services', 'mobile_wallets')
+        call_command('loaddata', 'applications', 'profiles', 'modems', 'operators', 'services', 'mobile_wallets')
         self.save_services_answers()
 
     def save_services_answers(self):

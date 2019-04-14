@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'channels',
     'django_cron',
     'rest_framework',
+    'django_twilio',
     'django_filters',
     'modem_api',
     'momo_api',
@@ -220,3 +221,9 @@ CRON_CLASSES = [
     "momo_api.cron.ProceedTransactionJob",
     # ...
 ]
+
+#  --- twilio config
+
+TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID")
+TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN")
+TWILIO_FROM=os.getenv("TWILIO_FROM")

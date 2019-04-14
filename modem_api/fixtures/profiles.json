@@ -1,0 +1,47 @@
+[
+  {
+    "model": "modem_api.profile",
+    "pk": 1,
+    "fields": {
+      "user_id": 4,
+      "phone_number": "+237695547656",
+      "department": "IT"
+    }
+  },
+  {
+    "model": "modem_api.profile",
+    "pk": 2,
+    "fields": {
+      "user_id": 5,
+      "phone_number": "+12023751095",
+      "department": "IT"
+    }
+  },
+  {
+    "model": "modem_api.profile",
+    "pk": 3,
+    "fields": {
+      "user_id": 6,
+      "phone_number": "+237656176797",
+      "department": "IT"
+    }
+  },
+  {
+    "model": "modem_api.profile",
+    "pk": 4,
+    "fields": {
+      "user_id": 7,
+      "phone_number": "+237695854097",
+      "department": "Operation"
+    }
+  },
+  {
+    "model": "modem_api.profile",
+    "pk": 5,
+    "fields": {
+      "user_id": 8,
+      "phone_number": "+237698126350",
+      "department": "Operation"
+    }
+  }
+]
