@@ -112,6 +112,7 @@ class ModemConsumer(WebsocketConsumer):
         # p.save()
 
         if response['data']['last_answer'] == 'timeout':
+            transaction.status = 'new'
             transaction.history = 'ussd timeout (maybe service unavailable) system will auto retry'
 
         elif response['data']['last_answer'] == 'unknow':
@@ -125,7 +126,7 @@ class ModemConsumer(WebsocketConsumer):
             ss1.balance -= transaction.amount
             ss1.save()
         else:
-            transaction.history = response['data']['last_answer']+" ==== "+response['data']['response']
+            transaction.history = response['data']['last_answer'] + " ==== " + response['data']['response']
             transaction.status = 'failed'
         station.state = 'free'
         station.save()
