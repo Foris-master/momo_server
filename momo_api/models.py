@@ -34,7 +34,7 @@ class MobileWallet(models.Model):
         ordering = ('updated_at',)
 
     def __str__(self):
-        return self.name + ' - ' + self.operator.name
+        return self.name + ' - ' + self.operator.name+' balance: '+str(self.balance)
 
 
 def sync_mobile_wallet_balance(mw):
@@ -101,10 +101,16 @@ class Transaction(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ('updated_at',)
+        ordering = ('-updated_at',)
 
     def __str__(self):
-        return str(self.amount) + ' FCFA to ' + self.recipient + self.status
+        return str(self.amount) + ' FCFA to ' + self.recipient +' '+ self.status
+
+    def display_proof(self):
+        """Create a string for the Genre. This is required to display genre in Admin."""
+        return ', '.join(p.mno_id for p in self.proof_set.all())
+
+    display_proof.short_description = 'MNO ID'
 
 
 @receiver(post_save, sender=Transaction)

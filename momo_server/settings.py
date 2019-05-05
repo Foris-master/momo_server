@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv('APP_SECRET')
 DEBUG = os.getenv('APP_DEBUG')
 
 # ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = [os.getenv('APP_URL'), '172.31.27.8', '10.0.2.2', 'localhost','52.89.249.144']
+ALLOWED_HOSTS = [os.getenv('APP_URL'), '172.31.27.8', '10.0.2.2', 'localhost', '52.89.249.144']
 
 # Application definition
 
@@ -171,6 +171,7 @@ AUTHENTICATION_BACKENDS = (
 # --- Oauth toolkit config
 OAUTH2_PROVIDER = {
     'DEFAULT_SCOPES': ['read', 'client'],
+    'ACCESS_TOKEN_EXPIRE_SECONDS': 60 * 60 * 24 * 365,  # token valid for one year
     'SCOPES': {
         'read': 'Read scope',
         'write': 'Write scope',
@@ -226,4 +227,4 @@ CRON_CLASSES = [
 
 TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID")
 TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN")
-TWILIO_FROM=os.getenv("TWILIO_FROM")
+TWILIO_FROM = os.getenv("TWILIO_FROM")

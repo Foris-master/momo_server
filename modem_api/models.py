@@ -146,8 +146,14 @@ def map_station_modem_state(sender, **kwargs):
             station.save()
     if modem.is_active != modem.previous_is_active :
 
-        send_modem_state_email(modem)
-        send_modem_state_sms(modem)
+        try:
+            send_modem_state_email(modem)
+        except:
+            pass
+        try:
+            send_modem_state_sms(modem)
+        except:
+            pass
 
 
 class ServiceStation(models.Model):
