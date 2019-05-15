@@ -36,6 +36,9 @@ class MobileWallet(models.Model):
     def __str__(self):
         return self.name + ' - ' + self.operator.name+' balance: '+str(self.balance)
 
+    def display_stations(self):
+        return ', '.join(s.phone_number for s in self.stations.all())
+
 
 def sync_mobile_wallet_balance(mw):
     mw.balance = 0
